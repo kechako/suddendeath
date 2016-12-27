@@ -8,13 +8,21 @@ suddeandeath is
 ￣Y^Y^Y^Y^Y^Y￣
 ```
 
-## Install command
+## Command
 
 ``` sh
 $ go get github.com/kechako/suddendeath/cmd/suddendeath
+$ suddendeath 突然の死
+＿人人人人人人＿
+＞　突然の死　＜
+￣Y^Y^Y^Y^Y^Y￣
 ```
 
 ## Package
+
+``` sh
+$ go get github.com/kechako/suddendeath
+```
 
 ``` go
 packamge main
