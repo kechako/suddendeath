@@ -10,7 +10,7 @@ suddeandeath is
 
 ## Command
 
-``` sh
+``` console
 $ go get github.com/kechako/suddendeath/cmd/suddendeath
 $ suddendeath 突然の死
 ＿人人人人人人＿
@@ -20,7 +20,7 @@ $ suddendeath 突然の死
 
 ## Package
 
-``` sh
+``` console
 $ go get github.com/kechako/suddendeath
 ```
 
