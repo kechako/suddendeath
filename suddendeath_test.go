@@ -5,7 +5,7 @@ import "testing"
 func TestTextWidth(t *testing.T) {
 	pattern := map[string]int{
 		// Neutral
-		"🍣🍺🍖🍷🍸": 5,
+		"🍣🍺🍖🍷🍸": 10,
 		// Ambiguous
 		"※○△□☆": 10,
 		// Wide
@@ -17,7 +17,7 @@ func TestTextWidth(t *testing.T) {
 		// Halfwidth
 		"ｱｲｳｴｵ": 5,
 		// Mixed
-		"🍣※あaａｱ": 9,
+		"🍣※あaａｱ": 10,
 	}
 
 	for str, expect := range pattern {
