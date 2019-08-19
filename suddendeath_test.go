@@ -2,55 +2,46 @@ package suddendeath
 
 import "testing"
 
-func TestTextWidth(t *testing.T) {
-	pattern := map[string]int{
-		// Neutral
-		"🍣🍺🍖🍷🍸": 10,
-		// Ambiguous
-		"※○△□☆": 10,
-		// Wide
-		"あいうえお": 10,
-		// Narrow
-		"aaaaa": 5,
-		// Fullwidth
-		"ａｂｃｄｅ": 10,
-		// Halfwidth
-		"ｱｲｳｴｵ": 5,
-		// Mixed
-		"🍣※あaａｱ": 10,
-	}
-
-	for str, expect := range pattern {
-		w := textWidth(str)
-
-		if w != expect {
-			t.Errorf("want %v\ngot %v", expect, w)
-		}
-	}
+var tests = map[string]string{
+	// Neutral (10)
+	"🍣🍺🍖🍷🍸": `＿人人人人人人人＿
+＞　🍣🍺🍖🍷🍸　＜
+￣Y^Y^Y^Y^Y^Y^Y￣`,
+	// Ambiguous (10)
+	"※○△□☆": `＿人人人人人人人＿
+＞　※○△□☆　＜
+￣Y^Y^Y^Y^Y^Y^Y￣`,
+	// Wide (10)
+	"あいうえお": `＿人人人人人人人＿
+＞　あいうえお　＜
+￣Y^Y^Y^Y^Y^Y^Y￣`,
+	// Narrow (5)
+	"aaaaa": `＿人人人人人＿
+＞　aaaaa 　＜
+￣Y^Y^Y^Y^Y￣`,
+	// Fullwidth (10)
+	"ａｂｃｄｅ": `＿人人人人人人人＿
+＞　ａｂｃｄｅ　＜
+￣Y^Y^Y^Y^Y^Y^Y￣`,
+	// Halfwidth (5)
+	"ｱｲｳｴｵ": `＿人人人人人＿
+＞　ｱｲｳｴｵ 　＜
+￣Y^Y^Y^Y^Y￣`,
+	// Mixed (10)
+	"🍣※あaａｱ": `＿人人人人人人人＿
+＞　🍣※あaａｱ　＜
+￣Y^Y^Y^Y^Y^Y^Y￣`,
 }
 
 func TestGenerate(t *testing.T) {
-	expect := `＿人人人人人人＿
-＞　突然の死　＜
-￣Y^Y^Y^Y^Y^Y￣`
-	got := Generate("突然の死")
-	if got != expect {
-		t.Errorf("want:\n%v\ngot:\n%v\n", expect, got)
-	}
-
-	expect = `＿人人人人＿
-＞　abc 　＜
-￣Y^Y^Y^Y￣`
-	got = Generate("abc")
-	if got != expect {
-		t.Errorf("want:\n%v\ngot:\n%v\n", expect, got)
-	}
-
-	expect = `＿人人人人人人人人＿
-＞　突 然 の 死 　＜
-￣Y^Y^Y^Y^Y^Y^Y^Y￣`
-	got = Generate("突 然 の 死")
-	if got != expect {
-		t.Errorf("want:\n%v\ngot:\n%v\n", expect, got)
+	for text, expect := range tests {
+		text := text
+		expect := expect
+		t.Run(text, func(t *testing.T) {
+			got := Generate(text)
+			if got != expect {
+				t.Errorf("want:\n%v\ngot:\n%v\n", expect, got)
+			}
+		})
 	}
 }

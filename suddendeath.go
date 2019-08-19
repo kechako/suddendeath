@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strings"
 
-	"golang.org/x/text/width"
+	"github.com/mattn/go-runewidth"
 )
 
 const (
@@ -23,7 +23,7 @@ func Generate(text string) string {
 	// remove line breaks
 	text = strings.Replace(text, "\n", "", -1)
 
-	width := textWidth(text)
+	width := runewidth.StringWidth(text)
 
 	var buf bytes.Buffer
 
@@ -52,20 +52,4 @@ func Generate(text string) string {
 	buf.WriteString(footerRight)
 
 	return buf.String()
-}
-
-func textWidth(text string) int {
-	w := 0
-
-	for _, r := range text {
-		p := width.LookupRune(r)
-		switch p.Kind() {
-		case width.EastAsianFullwidth, width.EastAsianWide, width.EastAsianAmbiguous:
-			w += 2
-		default:
-			w += 1
-		}
-	}
-
-	return w
 }
